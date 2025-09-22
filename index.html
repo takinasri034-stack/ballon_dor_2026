@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ballon d'Or 2025 - Fan Vote</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000; /* Black background */
+      color: #fff;
+      text-align: center;
+      margin:0; padding:0;
+    }
+    header {
+      background: linear-gradient(90deg, #111, #222);
+      padding: 40px 20px;
+      border-bottom: 2px solid gold;
+    }
+    header h1 {
+      font-size: 30px;
+      color: gold;
+      margin:0;
+      text-shadow: 2px 2px 8px #000;
+    }
+    .content {
+      max-width: 900px; 
+      margin: 20px auto; 
+      padding: 20px; 
+      background: rgba(20,20,20,0.9); 
+      border-radius: 12px;
+    }
+    .poll button {
+      background: gold; 
+      border: none; 
+      padding: 12px 24px; 
+      margin: 10px; 
+      cursor: pointer; 
+      border-radius: 6px; 
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .poll button:hover {
+      background: orange;
+      transform: scale(1.03);
+    }
+    .ad {
+      margin: 20px 0; 
+      background: #111; 
+      padding: 10px; 
+      border-radius: 8px; 
+      color: #aaa;
+      border: 1px dashed gold;
+    }
+    h3 { color: gold; margin-top: 20px; }
+    #results { margin-top: 10px; color: #fff; }
+    footer { font-size: 13px; color: #bbb; margin: 20px 0; }
+    @media (max-width:600px){
+      header h1 { font-size: 22px; }
+      .poll button { display:block; width:80%; margin:10px auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Ballon d'Or 2025 – Who Deserves the Trophy?</h1>
+</header>
+
+<div class="content">
+
+  <!-- Top Ad -->
+  <div class="ad">
+    Place your Ad Code here (728x90)
+  </div>
+
+  <p>Vote for your favorite player and see who fans think should win the 2025 Ballon d'Or! 
+  <br><small>(This is a fan challenge – not the official vote).</small></p>
+
+  <!-- Voting Section -->
+  <div class="poll" aria-label="Voting section">
+    <button onclick="vote('Dembélé')">Ousmane Dembélé</button>
+    <button onclick="vote('Hakimi')">Achraf Hakimi</button>
+    <button onclick="vote('Yamal')">Lamine Yamal</button>
+    <button onclick="vote('Raphinha')">Raphinha</button>
+  </div>
+
+  <h3>Live Results:</h3>
+  <div id="results">No votes yet.</div>
+
+  <!-- Middle Ad -->
+  <div class="ad">
+    Place your Ad Code here (300x250)
+  </div>
+
+  <!-- Comments Section -->
+  <h3>Share your opinion below 👇</h3>
+  <div class="comments">
+    <!-- If you use Blogger, the comments widget will appear here.
+         If deploying to Next.js/Vercel, put this file in the `public/` folder or use GitHub Pages root. -->
+  </div>
+
+  <!-- Bottom Ad -->
+  <div class="ad">
+    Place your Ad Code here (728x90)
+  </div>
+
+</div>
+
+<footer>Built for fan engagement — simple static HTML (no server required).</footer>
+
+<script>
+  // Simple in-memory vote. For global persistent results, integrate with Google Sheets or an API.
+  (function(){
+    const resultsEl = document.getElementById('results');
+    let votes = { "Dembélé":0, "Hakimi":0, "Yamal":0, "Raphinha":0 };
+
+    window.vote = function(player){
+      // increase vote and update UI
+      if (!votes[player]) votes[player] = 0;
+      votes[player]++;
+      render();
+    };
+
+    function render(){
+      const total = Object.values(votes).reduce((a,b)=>a+b,0);
+      if (total === 0) {
+        resultsEl.innerHTML = 'No votes yet.';
+        return;
+      }
+      let html = '<div style="text-align:left; display:inline-block; min-width:220px;">';
+      for (const p in votes){
+        const v = votes[p];
+        const pct = total ? Math.round((v/total)*100) : 0;
+        html += '<div style="margin-bottom:8px;"><strong>' + p + '</strong> — ' + v + ' votes (' + pct + '%)</div>';
+      }
+      html += '</div>';
+      resultsEl.innerHTML = html;
+    }
+
+    render();
+  })();
+</script>
+
+</body>
+</html>
